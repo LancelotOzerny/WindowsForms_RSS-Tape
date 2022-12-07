@@ -6,19 +6,6 @@ using System.Xml.Linq;
 
 namespace LAB_8
 {
-    /// <summary>
-    /// Класс который содержит в себе элементы новости
-    /// </summary>
-    public class Item
-    {
-        public string title { get; set; }
-        public string description {get; set;}
-        public string link { get; set;}
-        public string publication { get; set;}
-        public string guid {get; set;}
-        public string imageUrl { get; set;}
-    }
-
     public partial class Form1 : Form
     {
         /// <summary>
@@ -33,8 +20,16 @@ namespace LAB_8
         {
             InitializeComponent();
 
-            XElement tape = XElement.Load("https://www.f1-world.ru/news/rssexp6.xml");
-            ReadXMLTape(tape);
+            try
+            {
+                XElement tape = XElement.Load("https://www.f1-world.ru/news/rssexp6.xml");
+                ReadXMLTape(tape);
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Проверьте подлючение к интернету!");
+                Close();
+            }
         }
 
         /// <summary>
@@ -103,5 +98,18 @@ namespace LAB_8
 
             _items.Add(item);
         }
+    }
+
+    /// <summary>
+    /// Класс который содержит в себе элементы новости
+    /// </summary>
+    public class Item
+    {
+        public string title { get; set; }
+        public string description { get; set; }
+        public string link { get; set; }
+        public string publication { get; set; }
+        public string guid { get; set; }
+        public string imageUrl { get; set; }
     }
 }

@@ -28,23 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.pictureButton1 = new LAB_8.PictureButton();
+            this.pictureButton2 = new LAB_8.PictureButton();
             this.SuspendLayout();
             // 
-            // listBox1
+            // pictureButton1
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 13);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(180, 420);
-            this.listBox1.TabIndex = 0;
+            this.pictureButton1.Image = ((System.Drawing.Image)(resources.GetObject("pictureButton1.Image")));
+            this.pictureButton1.Location = new System.Drawing.Point(0, 310);
+            this.pictureButton1.MinScale = 0.75F;
+            this.pictureButton1.Name = "pictureButton1";
+            this.pictureButton1.Size = new System.Drawing.Size(100, 100);
+            this.pictureButton1.TabIndex = 2;
+            // 
+            // pictureButton2
+            // 
+            this.pictureButton2.Image = ((System.Drawing.Image)(resources.GetObject("pictureButton2.Image")));
+            this.pictureButton2.Location = new System.Drawing.Point(1165, 310);
+            this.pictureButton2.MinScale = 0.75F;
+            this.pictureButton2.Name = "pictureButton2";
+            this.pictureButton2.Size = new System.Drawing.Size(100, 100);
+            this.pictureButton2.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBox1);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.pictureButton2);
+            this.Controls.Add(this.pictureButton1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -52,8 +65,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox listBox1;
+        private PictureButton pictureButton1;
+        private PictureButton pictureButton2;
     }
 }
 
