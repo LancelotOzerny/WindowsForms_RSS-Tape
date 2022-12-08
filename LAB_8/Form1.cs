@@ -97,7 +97,7 @@ namespace LAB_8
 
         private void SetNextPage()
         {
-            if (++currentPageIndex > _items.Count + 1)
+            if (++currentPageIndex > _items.Count - 1)
             {
                 currentPageIndex = 0;
             }
