@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -13,13 +14,15 @@ namespace LAB_8
         /// </summary>
         private List<Item> _items = new List<Item>();
 
+        private int currentPageIndex;
+
         /// <summary>
         /// Инициализация формы
         /// </summary>
         public Form1()
         {
             InitializeComponent();
-
+            
             try
             {
                 XElement tape = XElement.Load("https://www.f1-world.ru/news/rssexp6.xml");
@@ -30,6 +33,8 @@ namespace LAB_8
                 MessageBox.Show("Проверьте подлючение к интернету!");
                 Close();
             }
+
+            SetPage();
         }
 
         /// <summary>
@@ -50,6 +55,11 @@ namespace LAB_8
             // Перебор всех элементов
             foreach (var element in elements)
             {
+                if (element.Name == "image")
+                {
+                    SetIcon(element);
+                    continue;
+                }
                 if (element.Name == "item")
                 {
                     SetItem(element);
@@ -58,6 +68,50 @@ namespace LAB_8
 
                 ReadXMLTape(element);
             }
+        }
+
+        private void SetIcon(XElement element)
+        {
+            foreach (var itemElement in element.Elements())
+            {
+                if (itemElement.Name == "title")
+                {
+                    // Заголовок сайта. Контента итак слишком много, и места для него не нашлось.
+                }
+
+                if (itemElement.Name == "url")
+                {
+                    picture_WebSiteIcon.ImageLocation = itemElement.Value;
+                }
+            }
+        }
+
+        private void SetPreviousPage()
+        {
+            if (--currentPageIndex < 0)
+            {
+                currentPageIndex = _items.Count - 1;
+            }
+            SetPage();
+        }
+
+        private void SetNextPage()
+        {
+            if (++currentPageIndex > _items.Count + 1)
+            {
+                currentPageIndex = 0;
+            }
+            SetPage();
+        }
+
+        private void SetPage()
+        {
+            label_date.Text = _items[currentPageIndex].publication;
+            page_title.Text = _items[currentPageIndex].title;
+
+            page_title.Location = new Point(Width / 2 - page_title.Width / 2, page_title.Location.Y);
+            page_image.ImageLocation = _items[currentPageIndex].imageUrl;
+            page_description.Text = _items[currentPageIndex].description;
         }
 
         /// <summary>
@@ -70,33 +124,50 @@ namespace LAB_8
 
             foreach (var itemElement in element.Elements())
             {
-                if (element.Name == "title")
+                if (itemElement.Name == "title")
                 {
                     item.title = itemElement.Value;
                 }
 
-                if (element.Name == "description")
+                if (itemElement.Name == "description")
                 {
                     item.description = itemElement.Value;
                 }
 
-                if (element.Name == "guid")
+                if (itemElement.Name == "guid")
                 {
                     item.guid = itemElement.Value;
                 }
 
-                if (element.Name == "pubDate")
+                if (itemElement.Name == "pubDate")
                 {
                     item.publication = itemElement.Value;
                 }
 
-                if (element.Name == "enclosure")
+                if (itemElement.Name == "enclosure")
                 {
                     item.imageUrl = (string)itemElement.Attribute("url");
                 }
             }
 
             _items.Add(item);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            pictureDate.BackColor = Color.FromArgb(0, 0, 0, 0);
+            pictureBox2.BackColor = Color.FromArgb(0, 0, 0, 0);
+
+            pictureDate.Invalidate();
+
+            pictureButton_link.mouseEnterEvent += () => { panel_WebSiteInfo.Visible = true; };
+            pictureButton_Date.mouseEnterEvent += () => { panel_dateInfo.Visible = true; };
+
+            pictureButton_link.mouseLeaveEvent += () => { panel_WebSiteInfo.Visible = false; };
+            pictureButton_Date.mouseLeaveEvent += () => { panel_dateInfo.Visible = false; };
+
+            leftArrow.mouseClickEvent += () => { SetPreviousPage(); };
+            rightArrow.mouseClickEvent += () => { SetNextPage(); };
         }
     }
 

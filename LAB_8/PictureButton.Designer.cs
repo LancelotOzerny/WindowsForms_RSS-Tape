@@ -44,6 +44,7 @@
             this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PictureBox.TabIndex = 0;
             this.PictureBox.TabStop = false;
+            this.PictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox_MouseClick);
             this.PictureBox.MouseEnter += new System.EventHandler(this.PictureBox_MouseEnter);
             this.PictureBox.MouseLeave += new System.EventHandler(this.PictureBox_MouseLeave);
             // 
@@ -55,6 +56,8 @@
             this.Name = "PictureButton";
             this.Size = new System.Drawing.Size(100, 100);
             this.Load += new System.EventHandler(this.PictureButton_Load);
+            this.MouseEnter += new System.EventHandler(this.PictureBox_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.PictureBox_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
             this.ResumeLayout(false);
 
