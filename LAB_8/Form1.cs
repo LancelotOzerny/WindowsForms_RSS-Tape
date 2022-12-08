@@ -76,7 +76,7 @@ namespace LAB_8
             {
                 if (itemElement.Name == "title")
                 {
-                    // Заголовок сайта. Контента итак слишком много, и места для него не нашлось.
+                    this.Text = itemElement.Value;
                 }
 
                 if (itemElement.Name == "url")
@@ -168,6 +168,7 @@ namespace LAB_8
 
             leftArrow.mouseClickEvent += () => { SetPreviousPage(); };
             rightArrow.mouseClickEvent += () => { SetNextPage(); };
+            pictureButton_link.mouseClickEvent += () => { System.Diagnostics.Process.Start(_items[currentPageIndex].guid); };
         }
     }
 
@@ -178,7 +179,6 @@ namespace LAB_8
     {
         public string title { get; set; }
         public string description { get; set; }
-        public string link { get; set; }
         public string publication { get; set; }
         public string guid { get; set; }
         public string imageUrl { get; set; }
